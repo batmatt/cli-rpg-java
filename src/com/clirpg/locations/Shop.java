@@ -1,6 +1,14 @@
-import java.util.Scanner;
+package src.com.clirpg.locations;
 
-class Shop implements Visit {
+import java.util.Scanner;
+import src.com.clirpg.characters.Shopkeeper;
+
+public class Shop implements Visit {
+    private Shopkeeper shopkeeper;
+
+    public Shop() {
+        shopkeeper = new Shopkeeper("Bob");
+    }
     
     public void visit(){
 

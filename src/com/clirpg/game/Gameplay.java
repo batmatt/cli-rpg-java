@@ -1,11 +1,18 @@
 package src.com.clirpg.game;
 
+import src.com.clirpg.locations.*;
 import java.util.Scanner;
 
 public class Gameplay {
     private boolean gameOver;
+    private Arena arena;
+    private Shop shop;
+    private Village village;
 
     public Gameplay() {
+        arena = new Arena();
+        shop = new Shop();
+        village = new Village();
     }
 
     public void openGameWorld() {
@@ -17,14 +24,13 @@ public class Gameplay {
 
             switch (choice) {
                 case 1:
-                    System.out.println("You chose to explore option 1.");
-                    // eg. moves to arena
+                    arena.visit();
                     break;
                 case 2:
-                    System.out.println("You chose to explore option 2.");
+                    shop.visit();
                     break;
                 case 3:
-                    System.out.println("You chose to explore option 3.");
+                    village.visit();
                     break;
                 case 4:
                     displayCharacterStatus();
@@ -47,9 +53,9 @@ public class Gameplay {
 
     private void displayExplorationMenu() {
         System.out.println("\nWhat are you going to do?");
-        System.out.println("1. Explore option 1");
-        System.out.println("2. Explore option 2");
-        System.out.println("3. Explore option 3");
+        System.out.println("1. Visit Arena");
+        System.out.println("2. Go to the Shop");
+        System.out.println("3. Explore nearby Village");
         System.out.println("4. Display your character status");
         System.out.println("5. Return to Main Menu");
     }

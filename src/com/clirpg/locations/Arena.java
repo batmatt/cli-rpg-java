@@ -1,6 +1,8 @@
+package src.com.clirpg.locations;
+
 import java.util.Scanner;
 
-class Arena implements Visit{
+public class Arena implements Visit{
     
     public void visit(){
 

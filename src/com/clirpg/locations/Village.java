@@ -1,3 +1,5 @@
+package src.com.clirpg.locations;
+
 import java.util.Scanner;
 
 public class Village implements Visit {

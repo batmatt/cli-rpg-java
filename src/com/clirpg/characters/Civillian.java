@@ -1,15 +1,17 @@
-class Civillian extends Entity implements Talk{
+package src.com.clirpg.characters;
+
+public class Civillian extends Entity implements Talk{
     final static boolean friendly = true;
     String job;
 
-    Civillian(String name, String job)
+    public Civillian(String name, String job)
     {
         super(name);
         this.job = job;
         this.health = 100;
     }
 
-    Civillian(String name, String job, int health)
+    public Civillian(String name, String job, int health)
     {
         super(name, health);
         this.job = job;

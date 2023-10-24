@@ -1,14 +1,16 @@
-class Monster extends Entity implements Combat{
+package src.com.clirpg.characters;
+
+public class Monster extends Entity implements Combat{
     final static boolean friendly = false;
     String job = "Monster";
     
-    Monster(String name)
+    public Monster(String name)
     {
         super(name);
         this.health = 100;
     }
 
-    Monster(String name, int health)
+    public Monster(String name, int health)
     {
         super(name, health);
     }

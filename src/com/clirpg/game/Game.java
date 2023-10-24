@@ -2,7 +2,11 @@ package src.com.clirpg.game;
 
 import java.util.Scanner;
 
+import src.com.clirpg.characters.Player;
+import src.com.utils.ConsoleColors;
+
 public class Game {
+    private Player player;
     private Gameplay gameplay;
     private boolean closeGame;
 
@@ -11,7 +15,7 @@ public class Game {
     }
 
     public void start() {
-        System.out.println("Welcome to the Text RPG Game!");
+        System.out.println(ConsoleColors.RED + "Welcome to the Text RPG Game!" + ConsoleColors.RESET);
         
         closeGame = false;
         while (!closeGame) {
@@ -49,9 +53,7 @@ public class Game {
     }
     
     private void startNewGame() {
-        // not implemented yet
-        // put here some initial creation of our character
-        // name, race, stats
+        player = new Player("Ben10"); 
         gameplay.openGameWorld();
     }
 

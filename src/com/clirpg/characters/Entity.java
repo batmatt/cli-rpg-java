@@ -1,3 +1,5 @@
+package src.com.clirpg.characters;
+
 abstract class Entity
 {
     String name;

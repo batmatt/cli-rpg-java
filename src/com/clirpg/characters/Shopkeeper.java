@@ -1,8 +1,10 @@
-class Shopkeeper extends Entity implements Talk{
+package src.com.clirpg.characters;
+
+public class Shopkeeper extends Entity implements Talk{
     final static boolean friendly = true;
     String job = "Shopkeeper";
 
-    Shopkeeper(String name)
+    public Shopkeeper(String name)
     {
         super(name);
         this.health = 100;

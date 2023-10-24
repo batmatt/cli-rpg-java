@@ -1,14 +1,16 @@
-class Soldier extends Entity implements Combat, Talk{
+package src.com.clirpg.characters;
+
+public class Soldier extends Entity implements Combat, Talk{
     final static boolean friendly = false;
     String job = "Enemy Soldier";
     
-    Soldier(String name)
+    public Soldier(String name)
     {
         super(name);
         this.health = 100;
     }
 
-    Soldier(String name, int health)
+    public Soldier(String name, int health)
     {
         super(name, health);
     }

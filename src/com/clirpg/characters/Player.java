@@ -1,8 +1,10 @@
-class Player extends Entity implements Combat{
+package src.com.clirpg.characters;
+
+public class Player extends Entity implements Combat{
     final static boolean friendly = true;
     String job = "Warrior";
     
-    Player(String name)
+    public Player(String name)
     {
         super(name);
         this.health = 100;
