@@ -1,13 +1,19 @@
 package src.com.clirpg.game;
 
+import src.com.clirpg.characters.Player;
 import src.com.clirpg.locations.*;
 import java.util.Scanner;
 
 public class Gameplay {
-    private boolean gameOver;
+    private Player player;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     private Arena arena;
     private Shop shop;
     private Village village;
+    private boolean gameOver;
 
     public Gameplay() {
         arena = new Arena();
@@ -15,7 +21,7 @@ public class Gameplay {
         village = new Village();
     }
 
-    public void openGameWorld() {
+    public void openGameWorld(Player player) {
         gameOver = false;
         System.out.println("\nYou find yourself in a vast game world.");
         while (!gameOver) {

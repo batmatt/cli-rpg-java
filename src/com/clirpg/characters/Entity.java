@@ -2,8 +2,8 @@ package src.com.clirpg.characters;
 
 abstract class Entity
 {
-    String name;
-    int health;
+    public String name;
+    public int health;
 
     Entity (String name)
     {

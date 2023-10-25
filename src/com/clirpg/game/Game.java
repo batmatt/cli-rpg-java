@@ -1,17 +1,18 @@
 package src.com.clirpg.game;
 
 import java.util.Scanner;
-
 import src.com.clirpg.characters.Player;
 import src.com.utils.ConsoleColors;
 
 public class Game {
     private Player player;
+    private CharacterCreator characterCreator;
     private Gameplay gameplay;
     private boolean closeGame;
 
     public Game() {
         gameplay = new Gameplay();
+        characterCreator = new CharacterCreator();
     }
 
     public void start() {
@@ -53,8 +54,9 @@ public class Game {
     }
     
     private void startNewGame() {
-        player = new Player("Ben10"); 
-        gameplay.openGameWorld();
+        player = characterCreator.createCharacter();
+        gameplay.setPlayer(player);
+        gameplay.openGameWorld(player);
     }
 
     private void handleRandomEvent() {
