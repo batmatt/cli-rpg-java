@@ -2,6 +2,7 @@ package src.com.clirpg.locations;
 
 import java.util.Scanner;
 import src.com.clirpg.characters.Shopkeeper;
+import src.com.utils.ConsoleColors;
 
 public class Shop implements Visit {
     private Shopkeeper shopkeeper;
@@ -12,9 +13,9 @@ public class Shop implements Visit {
     
     public void visit(){
 
-        System.out.println("Welcome to the shop!"); // maybe put name of shopkeeper there
+        shopkeeper.talk();
 
-        printShop();
+        //printShop();
 
         Scanner shopScan = new Scanner(System.in); 
         boolean shopBool = true;
@@ -26,19 +27,21 @@ public class Shop implements Visit {
             int choiceShop = shopScan.nextInt();
 
             switch(choiceShop){
-                case 1:     /* upgrade attack1 strength +1;*/ break;
-                case 2:     /* upgrade attack2 strength +1;*/ break;
-                case 3:     /* upgrade attack1 hit probability +5%;*/ break;
-                case 4:     /* upgrade attack2 hit probability +5%;*/ break;
+                case 1:     /* upgrade attack1 strength +1;*/showStats(choiceShop); break;
+                case 2:     /* upgrade attack2 strength +1;*/showStats(choiceShop); break;
+                case 3:     /* upgrade attack1 hit probability +5%;*/showStats(choiceShop); break;
+                case 4:     /* upgrade attack2 hit probability +5%;*/showStats(choiceShop); break;
                 case 5:     shopBool = false; break;
-                default:    System.out.println("This is not a valid option. Try again.");
+                default:    System.out.println("Invalid choice. Please try again.");
             }
         }   
+
+        shopkeeper.talkEnd();
     }
 
     private void printShop(){
 
-            System.out.println("Here are the options you can choose:");
+            System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": Here are the options you can choose:" + ConsoleColors.RESET);
             System.out.println("1. Attack1 strength +1, costs xx");
             System.out.println("2. Attack2 strength +1, costs xx");
             System.out.println("3. Attack1 hit probability +5%, costs xx");
@@ -46,6 +49,11 @@ public class Shop implements Visit {
             System.out.println("5. Exit"); 
             return;
         }
+
+    private void showStats(int choiceShop){
+        System.out.println("\nYou chose option " + choiceShop);
+        System.out.println("Your new stats are:"); // add print stats in player
+    }
 
     
 }
