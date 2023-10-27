@@ -1,5 +1,3 @@
-package src.com.clirpg;
-
 import src.com.clirpg.game.*;
 
 public class Main {
