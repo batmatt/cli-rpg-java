@@ -8,7 +8,7 @@ public class Shop implements Visit {
     private Shopkeeper shopkeeper;
 
     public Shop() {
-        shopkeeper = new Shopkeeper("Bob");
+        shopkeeper = new Shopkeeper("Jack");
     }
     
     public void visit(){
@@ -27,10 +27,14 @@ public class Shop implements Visit {
             int choiceShop = shopScan.nextInt();
 
             switch(choiceShop){
-                case 1:     /* upgrade attack1 strength +1;*/showStats(choiceShop); break;
-                case 2:     /* upgrade attack2 strength +1;*/showStats(choiceShop); break;
-                case 3:     /* upgrade attack1 hit probability +5%;*/showStats(choiceShop); break;
-                case 4:     /* upgrade attack2 hit probability +5%;*/showStats(choiceShop); break;
+                case 1:     /* upgrade attack1 strength +1;*/showStats(choiceShop);
+                            shopkeeper.talkThanks(); break;
+                case 2:     /* upgrade attack2 strength +1;*/showStats(choiceShop);
+                            shopkeeper.talkThanks(); break;
+                case 3:     /* upgrade attack1 hit probability +5%;*/showStats(choiceShop); 
+                            shopkeeper.talkThanks(); break;
+                case 4:     /* upgrade attack2 hit probability +5%;*/showStats(choiceShop);
+                            shopkeeper.talkThanks(); break;
                 case 5:     shopBool = false; break;
                 default:    System.out.println("Invalid choice. Please try again.");
             }
