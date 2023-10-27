@@ -1,8 +1,9 @@
 package src.com.clirpg.characters;
 
 public class Player extends Entity implements Combat{
-    public int attack;
-    public int defense;
+    public int attackStrength;
+    public int hitProbability;
+    public int money;
 
     final static boolean friendly = true;
     String job = "Warrior";
@@ -10,9 +11,10 @@ public class Player extends Entity implements Combat{
     public Player(String name, CharacterClass characterClass)
     {
         super(name);
+        money = 100;
         this.health = characterClass.health;
-        this.attack = characterClass.attack;
-        this.defense = characterClass.defense;   
+        this.attackStrength = characterClass.attackStrength;
+        this.hitProbability = characterClass.hitProbability;   
     }
 
     public void combat()

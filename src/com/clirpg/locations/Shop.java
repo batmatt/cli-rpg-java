@@ -1,63 +1,80 @@
 package src.com.clirpg.locations;
 
 import java.util.Scanner;
-import src.com.clirpg.characters.Shopkeeper;
+
+import src.com.clirpg.characters.*;
 import src.com.utils.ConsoleColors;
 
 public class Shop implements Visit {
     private Shopkeeper shopkeeper;
+    private Player player;
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
     public Shop() {
         shopkeeper = new Shopkeeper("Jack");
     }
-    
-    public void visit(){
+
+    public void visit() {
 
         shopkeeper.talk();
 
-        //printShop();
+        // printShop();
 
-        Scanner shopScan = new Scanner(System.in); 
+        Scanner shopScan = new Scanner(System.in);
         boolean shopBool = true;
 
-        while(shopBool){
+        while (shopBool) {
 
             printShop();
             System.out.println("Type in the number of the upgrade you want to have");
+            System.out.println("Money: " + player.money);
             int choiceShop = shopScan.nextInt();
 
-            switch(choiceShop){
-                case 1:     /* upgrade attack1 strength +1;*/showStats(choiceShop);
-                            shopkeeper.talkThanks(); break;
-                case 2:     /* upgrade attack2 strength +1;*/showStats(choiceShop);
-                            shopkeeper.talkThanks(); break;
-                case 3:     /* upgrade attack1 hit probability +5%;*/showStats(choiceShop); 
-                            shopkeeper.talkThanks(); break;
-                case 4:     /* upgrade attack2 hit probability +5%;*/showStats(choiceShop);
-                            shopkeeper.talkThanks(); break;
-                case 5:     shopBool = false; break;
-                default:    System.out.println("Invalid choice. Please try again.");
+            switch (choiceShop) {
+                case 1:
+                    player.attackStrength += 1;
+                    player.money -= 10;
+                    System.out.println("Your current attack strength: " + player.attackStrength);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    player.hitProbability += 5;
+                    player.money -= 15;
+                    System.out.println("Your current hit rate: " + player.hitProbability);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    player.health += 5;
+                    player.money -= 20;
+                    System.out.println("Your current health: " + player.health);
+                    break;
+                case 6:
+                    shopBool = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
-        }   
+
+            shopkeeper.talkThanks();
+        }
 
         shopkeeper.talkEnd();
     }
 
-    private void printShop(){
-
-            System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": Here are the options you can choose:" + ConsoleColors.RESET);
-            System.out.println("1. Attack1 strength +1, costs xx");
-            System.out.println("2. Attack2 strength +1, costs xx");
-            System.out.println("3. Attack1 hit probability +5%, costs xx");
-            System.out.println("4. Attack2 hit probability +5%, costs xx");
-            System.out.println("5. Exit"); 
-            return;
-        }
-
-    private void showStats(int choiceShop){
-        System.out.println("\nYou chose option " + choiceShop);
-        System.out.println("Your new stats are:"); // add print stats in player
+    private void printShop() {
+        System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": Here are the options you can choose:"
+                + ConsoleColors.RESET);
+        System.out.println("1. Attack1 strength +1, costs 10");
+        System.out.println("2. Attack2 strength +1, costs xx");
+        System.out.println("3. Attack1 hit probability +5%, costs 15");
+        System.out.println("4. Attack2 hit probability +5%, costs xx");
+        System.out.println("5. Health +5, costs 20");
+        System.out.println("6. Exit");
+        return;
     }
-
-    
 }

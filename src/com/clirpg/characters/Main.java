@@ -1,3 +1,6 @@
+
+package src.com.clirpg.characters;
+
 import java.util.Scanner;
 
 class Main {

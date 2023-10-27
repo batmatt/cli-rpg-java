@@ -33,6 +33,7 @@ public class Gameplay {
                     arena.visit();
                     break;
                 case 2:
+                    shop.setPlayer(player);
                     shop.visit();
                     break;
                 case 3:
@@ -68,9 +69,9 @@ public class Gameplay {
 
     private void displayCharacterStatus() {
         System.out.println("\nCharacter Status:");
-        System.out.println("Name: ");
-        System.out.println("Health: ");
-        System.out.println("Attack: ");
-        System.out.println("Defense: ");
+        System.out.println("Name: " + player.name);
+        System.out.println("Health: " + player.health);
+        System.out.println("Attack strength: " + player.attackStrength);
+        System.out.println("Hit rate: " + player.hitProbability);
     }
 }

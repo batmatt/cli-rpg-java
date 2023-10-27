@@ -1,17 +1,17 @@
 package src.com.clirpg.characters;
 
 public enum CharacterClass {
-    WARRIOR(100, 20, 10),
-    MAGE(80, 30, 5),
-    ROGUE(90, 25, 15);
+    WARRIOR(100, 30, 10),
+    MAGE(80, 10, 20),
+    ROGUE(60, 15, 30);
 
-    int health;
-    int attack;
-    int defense;
+    public int health;
+    public int attackStrength;
+    public int hitProbability;
 
-    CharacterClass(int health, int attack, int defense) {
+    CharacterClass(int health, int attackStrength, int hitProbability) {
         this.health = health;
-        this.attack = attack;
-        this.defense = defense;
+        this.attackStrength = attackStrength;
+        this.hitProbability = hitProbability;
     }
 }
