@@ -1,12 +1,13 @@
 package src.com.clirpg.characters;
 
-public class Player extends Entity implements Combat{
+import java.io.Serializable;
+
+public class Player extends Entity implements Combat, Serializable{
     public int attackStrength;
     public int hitProbability;
     public int money;
 
     final static boolean friendly = true;
-    String job = "Warrior";
     
     public Player(String name, CharacterClass characterClass)
     {
@@ -17,13 +18,14 @@ public class Player extends Entity implements Combat{
         this.hitProbability = characterClass.hitProbability;   
     }
 
+    @Override
+    public String toString() {
+        return "Player [health=" + health + ", attackStrength=" + attackStrength + ", hitProbability=" + hitProbability + ", money=" + money
+                + "]";
+    }
+
     public void combat()
     {
         System.out.println("start combat");
-    }
-
-    public String toString()
-    {
-        return this.name + " " + this.job; 
     }
 }

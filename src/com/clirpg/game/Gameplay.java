@@ -2,6 +2,8 @@ package src.com.clirpg.game;
 
 import src.com.clirpg.characters.Player;
 import src.com.clirpg.locations.*;
+import src.com.utils.ConsoleColors;
+
 import java.util.Scanner;
 
 public class Gameplay {
@@ -13,7 +15,7 @@ public class Gameplay {
     private Arena arena;
     private Shop shop;
     private Village village;
-    private boolean gameOver;
+    private boolean gameOngoing;
 
     public Gameplay() {
         arena = new Arena();
@@ -22,9 +24,9 @@ public class Gameplay {
     }
 
     public void openGameWorld(Player player) {
-        gameOver = false;
+        gameOngoing = true;
         System.out.println("\nYou find yourself in a vast game world.");
-        while (!gameOver) {
+        while (gameOngoing) {
             displayExplorationMenu();
             int choice = getUserChoice();
 
@@ -43,8 +45,8 @@ public class Gameplay {
                     displayCharacterStatus();
                     break;
                 case 5:
-                    System.out.println("Returning to the main menu.");
-                    gameOver = true;
+                    System.out.println(ConsoleColors.RED + "Returning to the main menu." + ConsoleColors.RESET);
+                    gameOngoing = false;
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");

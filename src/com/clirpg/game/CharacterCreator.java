@@ -3,6 +3,7 @@ package src.com.clirpg.game;
 import java.util.Scanner;
 import src.com.clirpg.characters.CharacterClass;
 import src.com.clirpg.characters.Player;
+import src.com.utils.ConsoleColors;
 
 public class CharacterCreator {
 
@@ -17,10 +18,7 @@ public class CharacterCreator {
         CharacterClass characterClass = chooseCharacterClass();
         Player player = new Player(playerName, characterClass);
 
-        System.out.println("You have created a " + characterClass + " named " + playerName + " with the following statistics:");
-        System.out.println("Health: " + player.health);
-        System.out.println("Attack strength: " + player.attackStrength);
-        System.out.println("Hit rate: " + player.hitProbability);
+        System.out.println(ConsoleColors.GREEN + "You have created a " + characterClass + " named " + playerName + ConsoleColors.RESET);
 
         return player;
     }
@@ -29,7 +27,8 @@ public class CharacterCreator {
         System.out.println("Choose your character class:");
 
         for (CharacterClass characterClass : CharacterClass.values()) {
-            System.out.println(characterClass.ordinal() + 1 + ". " + characterClass);
+            var optionNumber = characterClass.ordinal() + 1;
+            System.out.println (ConsoleColors.GREEN_BACKGROUND + optionNumber+ ". " + characterClass + ConsoleColors.RESET);
             System.out.println("   Health: " + characterClass.health);
             System.out.println("   Attack strength: " + characterClass.attackStrength);
             System.out.println("   Hit rate: " + characterClass.hitProbability);

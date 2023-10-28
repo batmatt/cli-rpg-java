@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+*.dat
 
 # Log file
 *.log
