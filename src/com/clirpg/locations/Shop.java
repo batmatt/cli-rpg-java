@@ -29,8 +29,8 @@ public class Shop implements Visit {
         while (shopBool) {
 
             printShop();
-            System.out.println("Type in the number of the upgrade you want to have");
             System.out.println("Money: " + player.money);
+            System.out.println("Type in the number of the upgrade you want to have");
             int choiceShop = shopScan.nextInt();
 
             switch (choiceShop) {
