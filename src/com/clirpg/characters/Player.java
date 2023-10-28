@@ -6,6 +6,7 @@ public class Player extends Entity implements Combat, Serializable{
     public int attackStrength;
     public int hitProbability;
     public int money;
+    public int maxLevelArena;
 
     final static boolean friendly = true;
     
@@ -13,6 +14,7 @@ public class Player extends Entity implements Combat, Serializable{
     {
         super(name);
         money = 100;
+        maxLevelArena = 0;
         this.health = characterClass.health;
         this.attackStrength = characterClass.attackStrength;
         this.hitProbability = characterClass.hitProbability;   

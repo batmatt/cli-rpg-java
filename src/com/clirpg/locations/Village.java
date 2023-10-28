@@ -3,47 +3,56 @@ package src.com.clirpg.locations;
 import java.util.Scanner;
 
 import src.com.utils.ConsoleColors;
-import src.com.clirpg.characters.Civillian;
+import src.com.clirpg.characters.*;
+import src.com.clirpg.game.Quest;
 
 public class Village implements Visit {
 
     private Civillian civillian;
-
     private Civillian mayor;
+    private Quest quest;
+    private Player player;
 
-    public Village() {
-        mayor = new Civillian("Thomas", "Mayor");
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public void visit(){
 
-        civillian = new Civillian(getCivillianName(), getCivillianJob());
+    public Village(Quest quest) {
+        mayor = new Civillian("Thomas", "Mayor");
+        this.quest = quest;
+            
+    }
+
+    
+    public void visit(){
 
         System.out.println(ConsoleColors.GREEN_BOLD + "\n" + mayor.toString() + ": Welcome to the village!" + ConsoleColors.RESET);
 
-        String villageFight = "y";
+        boolean villageBool = true;
+        Scanner villageScan = new Scanner(System.in);
 
-        while(villageFight.equals("y")){
-  
-            System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": I have found a civillian who has a quest for you." + ConsoleColors.RESET);
-    
-            civillian.talk();
+        while(villageBool == true){
 
-            Scanner villageScan = new Scanner(System.in);
+            printMayor();
+            System.out.println("Type in the number of the upgrade you want to have");
+            int choiceVillage = villageScan.nextInt();
 
-            System.out.println("If yes type y otherwise n");
-            villageFight = villageScan.nextLine();
-
-            switch(villageFight){
-                case "y":   System.out.println("The fight is against xxx"); 
-                            /*  start fight ;*/
-                            civillian.talkEnd();
-                            civillian = new Civillian(getCivillianName(), getCivillianJob());
-                            break;
-                case "n":   villageFight = "n"; break;
-                default:    System.out.println("This is not a valid option. Try again."); 
-                            villageFight = "y";
+            switch (choiceVillage) {
+                case 1:
+                    quest.showQuests();
+                    break;
+                case 2:
+                    fightingQuest();
+                    break;
+                case 3:
+                    villageBool = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
+
+
         }
 
         System.out.println(ConsoleColors.GREEN_BOLD + "\n" + mayor.toString() + ": Thank you for your visit. I hope you come back soon." + ConsoleColors.RESET);
@@ -85,5 +94,46 @@ public class Village implements Visit {
         }
 
         return job;
+    }
+
+    private void fightingQuest(){
+
+        civillian = new Civillian(getCivillianName(), getCivillianJob());
+        String villageFight = "y";
+
+        while(villageFight.equals("y")){
+  
+            System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": I have found a civillian who has a fighting quest for you." + ConsoleColors.RESET);
+    
+            civillian.talk();
+
+            Scanner villageScan = new Scanner(System.in);
+
+            System.out.println("If yes type y otherwise n");
+            villageFight = villageScan.nextLine();
+
+            switch(villageFight){
+                case "y":   System.out.println("The fight is against xxx"); 
+                            /*  start fight ;*/
+                            player.money += 10;
+                            civillian.talkEnd();
+                            System.out.println("Money: " + player.money);
+                            civillian = new Civillian(getCivillianName(), getCivillianJob());
+                            break;
+                case "n":   villageFight = "n"; break;
+                default:    System.out.println("This is not a valid option. Try again."); 
+                            villageFight = "y";
+            }
+        }
+
+    }
+
+    private void printMayor(){
+        System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": I have general quest and fighting quests for you in this village." + ConsoleColors.RESET);
+
+        System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": Here are the options you can choose:" + ConsoleColors.RESET);
+        System.out.println("1. General quests");
+        System.out.println("2. Fighting quest");
+        System.out.println("3. Exit");        
     }
 }
