@@ -14,14 +14,17 @@ public class Gameplay {
     private Shop shop;
     private Village village;
     private boolean gameOver;
+    private Quest quest;
 
     public Gameplay() {
         arena = new Arena();
         shop = new Shop();
-        village = new Village();
+        quest = new Quest();
+        village = new Village(quest);  
     }
 
     public void openGameWorld(Player player) {
+        quest.setPlayer(player);
         gameOver = false;
         System.out.println("\nYou find yourself in a vast game world.");
         while (!gameOver) {
@@ -30,6 +33,7 @@ public class Gameplay {
 
             switch (choice) {
                 case 1:
+                    arena.setPlayer(player);
                     arena.visit();
                     break;
                 case 2:
@@ -37,6 +41,7 @@ public class Gameplay {
                     shop.visit();
                     break;
                 case 3:
+                    village.setPlayer(player);
                     village.visit();
                     break;
                 case 4:
