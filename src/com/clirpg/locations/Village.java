@@ -21,6 +21,7 @@ public class Village implements Visit {
     public Village(Quest quest) {
         mayor = new Civillian("Thomas", "Mayor");
         this.quest = quest;
+            
     }
 
     
@@ -133,6 +134,6 @@ public class Village implements Visit {
         System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": Here are the options you can choose:" + ConsoleColors.RESET);
         System.out.println("1. General quests");
         System.out.println("2. Fighting quest");
-        System.out.println("3. Exit");       
+        System.out.println("3. Exit");        
     }
 }
