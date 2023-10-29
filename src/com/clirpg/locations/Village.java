@@ -1,10 +1,12 @@
 package src.com.clirpg.locations;
 
 import java.util.Scanner;
+import java.util.Random;
 
 import src.com.utils.ConsoleColors;
 import src.com.clirpg.characters.*;
 import src.com.clirpg.game.Quest;
+import src.com.clirpg.game.Round;
 
 public class Village implements Visit {
 
@@ -51,12 +53,9 @@ public class Village implements Visit {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-
-
         }
 
         System.out.println(ConsoleColors.GREEN_BOLD + "\n" + mayor.toString() + ": Thank you for your visit. I hope you come back soon." + ConsoleColors.RESET);
-    
     
     }
 
@@ -113,8 +112,12 @@ public class Village implements Visit {
             villageFight = villageScan.nextLine();
 
             switch(villageFight){
-                case "y":   System.out.println("The fight is against xxx"); 
-                            /*  start fight ;*/
+                case "y":   System.out.println("The fight starts"); 
+                            Round round1 = new Round(getEnemyLevel(), player);
+                            if (round1.startRound() == 0)
+                            {
+                                return;
+                            };
                             player.money += 10;
                             civillian.talkEnd();
                             System.out.println("Money: " + player.money);
@@ -130,10 +133,24 @@ public class Village implements Visit {
 
     private void printMayor(){
         System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": I have general quest and fighting quests for you in this village." + ConsoleColors.RESET);
-
         System.out.println(ConsoleColors.GREEN + "\n" + mayor.toString() + ": Here are the options you can choose:" + ConsoleColors.RESET);
         System.out.println("1. General quests");
         System.out.println("2. Fighting quest");
         System.out.println("3. Exit");        
+    }
+
+    private int getEnemyLevel(){
+        Random random = new Random();
+        if(player.maxLevelArena < 3){
+            return 1;
+        }
+        else if(player.maxLevelArena < 5){
+            int randomNumber = random.nextInt(2);
+            return player.maxLevelArena - randomNumber;
+        }
+        else{
+            int randomNumber = random.nextInt(5);
+            return player.maxLevelArena - randomNumber;
+        }
     }
 }
