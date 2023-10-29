@@ -35,7 +35,7 @@ public class Village implements Visit {
         while(villageBool == true){
 
             printMayor();
-            System.out.println("Type in the number of the upgrade you want to have");
+            System.out.println("Type in the number you want to have");
             int choiceVillage = villageScan.nextInt();
 
             switch (choiceVillage) {
