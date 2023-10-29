@@ -44,10 +44,10 @@ public class CharacterCreator {
                 if (choice >= 1 && choice <= CharacterClass.values().length) {
                     return CharacterClass.values()[choice - 1];
                 } else {
-                    System.out.println("Invalid choice. Please enter a valid class number.");
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice. Please enter a valid class number." + ConsoleColors.RESET);
                 }
             } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a numeric value.");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid input. Please enter a numeric value." + ConsoleColors.RESET);
                 scanner.next(); 
             }
         }

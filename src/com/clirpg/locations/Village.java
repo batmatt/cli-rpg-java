@@ -1,6 +1,7 @@
 package src.com.clirpg.locations;
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
 import java.util.Random;
 
 import src.com.utils.ConsoleColors;
@@ -26,7 +27,6 @@ public class Village implements Visit {
             
     }
 
-    
     public void visit(){
 
         System.out.println(ConsoleColors.GREEN_BOLD + "\n" + mayor.toString() + ": Welcome to the village!" + ConsoleColors.RESET);
@@ -38,9 +38,9 @@ public class Village implements Visit {
 
             printMayor();
             System.out.println("Type in the number you want to have");
-            int choiceVillage = villageScan.nextInt();
+            int choice = getUserChoice();
 
-            switch (choiceVillage) {
+            switch (choice) {
                 case 1:
                     quest.showQuests();
                     break;
@@ -51,12 +51,21 @@ public class Village implements Visit {
                     villageBool = false;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice. Please try again." + ConsoleColors.RESET);
             }
         }
 
         System.out.println(ConsoleColors.GREEN_BOLD + "\n" + mayor.toString() + ": Thank you for your visit. I hope you come back soon." + ConsoleColors.RESET);
-    
+    }
+
+    private int getUserChoice() {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("Enter your choice: ");
+            return scanner.nextInt(); 
+        } catch (InputMismatchException e) {
+            return 0; // put 0 value to trigger default switch case
+        }
     }
 
     private String getCivillianName(){
@@ -124,7 +133,7 @@ public class Village implements Visit {
                             civillian = new Civillian(getCivillianName(), getCivillianJob());
                             break;
                 case "n":   villageFight = "n"; break;
-                default:    System.out.println("This is not a valid option. Try again."); 
+                default:    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "This is not a valid option. Try again." + ConsoleColors.RESET); 
                             villageFight = "y";
             }
         }

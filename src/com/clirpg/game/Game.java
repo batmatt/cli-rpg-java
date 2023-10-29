@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import src.com.clirpg.characters.Player;
 import src.com.utils.ConsoleColors;
@@ -70,17 +71,15 @@ public class Game {
         System.out.println("3. Quit");
     }
 
+
     private int getUserChoice() {
-        System.out.print("Enter your choice: ");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
-    }
-    
-    private void startNewGame() {
-        player = characterCreator.createCharacter();
-        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Created new character: " + player.name + ConsoleColors.RESET);
-        gameplay.setPlayer(player);
-        gameplay.openGameWorld(player);
+        try {
+            System.out.print("Enter your choice: ");
+            return scanner.nextInt(); 
+        } catch (InputMismatchException e) {
+            return 0; // put 0 value to trigger default switch case
+        }
     }
 
     private Player loadCharacter() {

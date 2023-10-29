@@ -1,5 +1,6 @@
 package src.com.clirpg.locations;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import src.com.clirpg.characters.*;
@@ -31,9 +32,9 @@ public class Shop implements Visit {
             printShop();
             System.out.println("Money: " + player.money);
             System.out.println("Type in the number of the upgrade you want to have");
-            int choiceShop = shopScan.nextInt();
+            int choice = getUserChoice();
 
-            switch (choiceShop) {
+            switch (choice) {
                 case 1:
                     if(player.money >= 10){
                         player.attackStrength += 1;
@@ -68,13 +69,23 @@ public class Shop implements Visit {
                     shopBool = false;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice. Please try again." + ConsoleColors.RESET);
             }
 
             shopkeeper.talkThanks();
         }
 
         shopkeeper.talkEnd();
+    }
+
+    private int getUserChoice() {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("Enter your choice: ");
+            return scanner.nextInt(); 
+        } catch (InputMismatchException e) {
+            return 0; // put 0 value to trigger default switch case
+        }
     }
 
     private void printShop() {

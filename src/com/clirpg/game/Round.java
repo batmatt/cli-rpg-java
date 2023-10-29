@@ -180,7 +180,7 @@ public class Round {
                     choice = choiceReader.nextInt();
                     while ((choice > (currentSoldierNumber - 1)) || (choice < 0))
                     {
-                        System.out.println("Invalid integer, pick again");
+                        System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid integer, pick again" + ConsoleColors.RESET);
                         System.out.println(ConsoleColors.YELLOW_UNDERLINED + "Choose Soldier in range 0-" + (currentSoldierNumber - 1) + ConsoleColors.RESET);
                         choice = choiceReader.nextInt();
                     }
@@ -200,7 +200,7 @@ public class Round {
                     choice = choiceReader.nextInt();
                     while ((choice > (currentMonsterNumber - 1)) || (choice < 0))
                     {
-                        System.out.println("Invalid integer, pick again");
+                        System.out.println(ConsoleColors.RED_BOLD_BRIGHT+ "Invalid integer, pick again" + ConsoleColors.RESET);
                         System.out.println(ConsoleColors.YELLOW_UNDERLINED + "Choose Monster in range 0-" + (currentMonsterNumber - 1) + ConsoleColors.RESET);
                         choice = choiceReader.nextInt();
                     }
@@ -209,7 +209,7 @@ public class Round {
                     roundMonsterArray[choice].setHealth(player.combat());
                     break;
                 default:
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice. Try again." + ConsoleColors.RESET);
                     break;
             }
             enemiesRemain = checkAndUpdate();
@@ -234,7 +234,7 @@ public class Round {
             if (player.health < 0)
             {
                 System.out.println(ConsoleColors.RED_BACKGROUND + "You died!" + ConsoleColors.RESET);
-                playerAlive = 0;
+                System.exit(0);
             }
         }
     }

@@ -1,5 +1,6 @@
 package src.com.clirpg.locations;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import src.com.clirpg.game.Round;
@@ -25,10 +26,9 @@ public class Arena implements Visit{
         System.out.println("\n");
         System.out.println(ConsoleColors.PURPLE_BOLD + trainer.toString() + ": Welcome to the arena!" + ConsoleColors.RESET);
 
-        Scanner lvlScan = new Scanner(System.in);
         System.out.println(ConsoleColors.PURPLE + trainer.toString() + ": At what level do you want to start?" + ConsoleColors.RESET);
 
-        int levelArena = lvlScan.nextInt();
+        int levelArena = getUserChoice();
 
         // start fight with power level: levelArena
 
@@ -60,13 +60,22 @@ public class Arena implements Visit{
                                 player.maxLevelArena = levelArena;
                             }
                             break;
-                default:    System.out.println("This is not a valid option. Try again."); 
+                default:    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "This is not a valid option. Try again." + ConsoleColors.RESET); 
                             contFight = "y";
             }
 
         }
-
         return;
+    }
 
+    private int getUserChoice() {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("Enter your choice: ");
+            return scanner.nextInt(); 
+        } catch (InputMismatchException e) {
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "This is not a valid option. Starting at level 0." + ConsoleColors.RESET);
+            return 0; // put 0 value to trigger default switch case
+        }
     }
 }

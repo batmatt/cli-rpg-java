@@ -4,6 +4,7 @@ import src.com.clirpg.characters.Player;
 import src.com.clirpg.locations.*;
 import src.com.utils.ConsoleColors;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Gameplay {
@@ -29,10 +30,11 @@ public class Gameplay {
         gameOngoing = true;
         quest.setPlayer(player);
         System.out.println("\nYou find yourself in a vast game world.");
+
         while (gameOngoing) {
             displayExplorationMenu();
             int choice = getUserChoice();
-
+            
             switch (choice) {
                 case 1:
                     arena.setPlayer(player);
@@ -54,15 +56,19 @@ public class Gameplay {
                     gameOngoing = false;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice. Please try again." + ConsoleColors.RESET);
             }
         }
     }
 
     private int getUserChoice() {
-        System.out.print("Enter your choice: ");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        try {
+            System.out.print("Enter your choice: ");
+            return scanner.nextInt(); 
+        } catch (InputMismatchException e) {
+            return 0; // put 0 value to trigger default switch case
+        }
     }
 
     private void displayExplorationMenu() {
@@ -75,10 +81,10 @@ public class Gameplay {
     }
 
     private void displayCharacterStatus() {
-        System.out.println("\nCharacter Status:");
-        System.out.println("Name: " + player.name);
-        System.out.println("Health: " + player.health);
-        System.out.println("Attack strength: " + player.attackStrength);
-        System.out.println("Hit rate: " + player.hitProbability);
+        System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT + "\nCharacter Status:" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE + "Name: " + player.name + ConsoleColors.RESET) ;
+        System.out.println(ConsoleColors.BLUE + "Health: " + player.health + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE + "Attack strength: " + player.attackStrength + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE + "Hit rate: " + player.hitProbability + ConsoleColors.RESET);
     }
 }
