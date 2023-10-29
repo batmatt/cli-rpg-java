@@ -1,5 +1,8 @@
 package src.com.clirpg.characters;
 
+import java.util.Random;
+
+
 public class Player extends Entity implements Combat {
     public int attackStrength;
     public int hitProbability;
@@ -24,8 +27,21 @@ public class Player extends Entity implements Combat {
                 + "]";
     }
 
-    public void combat()
+    public int combat()
     {
-        System.out.println("start combat");
+        int randomNumber;
+        Random random = new Random();
+        randomNumber = random.nextInt(100);
+        //System.out.println("rng: " + randomNumber);
+        if(randomNumber < this.hitProbability)
+        {
+            System.out.println("Attack hits for " + this.attackStrength + " damage");
+            return this.attackStrength;
+        }
+        else
+        {
+            System.out.println("attack fails");
+        }
+        return 0;
     }
 }

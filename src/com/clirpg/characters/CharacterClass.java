@@ -1,9 +1,9 @@
 package src.com.clirpg.characters;
 
 public enum CharacterClass {
-    WARRIOR(100, 30, 10),
-    MAGE(80, 10, 20),
-    ROGUE(60, 15, 30);
+    WARRIOR(100, 30, 70),
+    MAGE(80, 10, 80),
+    ROGUE(60, 15, 90);
 
     public int health;
     public int attackStrength;

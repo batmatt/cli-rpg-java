@@ -1,12 +1,13 @@
 package src.com.clirpg.game;
 
 import java.util.Random;
+import java.util.Scanner;
 
-import src.com.clirpg.characters.Monster;
-import src.com.clirpg.characters.Soldier;
+import src.com.clirpg.characters.*;
 
 public class Round {
     private int level;
+    private Player player;
     private Soldier roundSoldierArray[];
     private int currentSoldierNumber = 0;
     private Monster roundMonsterArray[];
@@ -16,6 +17,14 @@ public class Round {
     public Round(int level)
     {
         this.level = level;
+        this.roundSoldierArray = new Soldier [1000];
+        this.roundMonsterArray = new Monster [1000];
+    }
+
+    public Round(int level, Player player)
+    {
+        this.level = level;
+        this.player = player;
         this.roundSoldierArray = new Soldier [1000];
         this.roundMonsterArray = new Monster [1000];
     }
@@ -30,18 +39,18 @@ public class Round {
         this.level = level;
     }
 
-    public void startRound(int level)
+    public void startRound()
     {
         Random random = new Random();
-        this.setLevel(level);
-        System.out.println("started round at level: " + this.getLevel());
+        //System.out.println("started round at level: " + this.getLevel());
         // Get enemies
         int soldierNumber = 0;
         int monsterNumber = 0;
         // Generate a random double between 0 (inclusive) and 1 (exclusive)
         for (int i = this.getLevel(); i > 0; i--) {
             //System.out.println(i);
-            int randomNumber = random.nextInt(2);
+            // chane do disable monsters
+            int randomNumber = random.nextInt(1);
             //System.out.println(randomNumber);
             switch (randomNumber) {
                 case 0:
@@ -54,8 +63,8 @@ public class Round {
             }
         }
         //System.out.println("remainder = " + (this.getLevel() - (soldierNumber + (monsterNumber * 3))));
-        System.out.println("soldier number = " + soldierNumber);
-        System.out.println("monster number = " + monsterNumber);
+        //System.out.println("soldier number = " + soldierNumber);
+        //System.out.println("monster number = " + monsterNumber);
 
         for (int i = soldierNumber; i > 0; i--) {
             //System.out.println(i);
@@ -132,7 +141,95 @@ public class Round {
                     break;                                                            
             }
         }
-    System.out.println(this.toString());
+        this.roundLoop();
+    }
+
+    public void roundLoop() {
+        Scanner choiceReader = new Scanner(System.in);
+        
+        while (player.health > 0) {
+            System.out.println(this.toString());
+            System.out.println("Enter '1' to attack soldier");
+            System.out.println("Enter '2' to attack monster");
+            int choice = choiceReader.nextInt();
+    
+            // Check the value of 'choice' and perform actions accordingly
+            switch (choice) {
+                case 1:
+                    // Code to attack a soldier
+                    // For example: player.attackSoldier();
+                    System.out.println("player chooses soldier");
+                    System.out.println("choose soldier 0-" + (currentSoldierNumber - 1));
+                    choice = choiceReader.nextInt();
+                    while ((choice > (currentSoldierNumber - 1)) || (choice < 0))
+                    {
+                        System.out.println("Invalid integer, pick again");
+                        System.out.println("choose soldier 0-" + (currentSoldierNumber - 1));
+                        choice = choiceReader.nextInt();
+                    }
+                    System.out.println("selected soldier: " + roundSoldierArray[choice].toString());
+                    roundSoldierArray[choice].setHealth(player.combat());
+                    break;
+                case 2:
+                    // Code to attack a monster
+                    // For example: player.attackMonster();
+                    System.out.println("player chooses Monster");
+                    System.out.println("choose Monster 0-" + (currentMonsterNumber - 1));
+                    choice = choiceReader.nextInt();
+                    while ((choice > (currentMonsterNumber - 1)) || (choice < 0))
+                    {
+                        System.out.println("Invalid integer, pick again");
+                        System.out.println("choose Monster 0-" + (currentMonsterNumber - 1));
+                        choice = choiceReader.nextInt();
+                    }
+                    System.out.println("selected Monster: " + roundMonsterArray[choice].toString());
+                    roundMonsterArray[choice].setHealth(player.combat());
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+                    break;
+            }
+            checkAndUpdate();
+        }
+    }
+    
+    public int checkAndUpdate()
+    {
+        for (int i = 0; i < currentSoldierNumber; i++)
+        {
+            if (roundSoldierArray[i] != null)
+            {
+                if (roundSoldierArray[i].health <= 0)
+                {
+                    System.out.println(roundSoldierArray[i].name + " died");
+                    removeSoldier(i);
+                    return 1;
+                }
+            }
+            else
+            {
+                System.out.println("soldier lost error at " + i);
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    public void removeSoldier(int toRemove)
+    {
+        Soldier[] tmpRoundSoldierArray = roundSoldierArray;
+        int tmpSoldierNumber = currentSoldierNumber;
+        System.out.println("target to remove " + tmpRoundSoldierArray[toRemove]);
+        this.roundSoldierArray = new Soldier [1000];
+        this.currentSoldierNumber = 0;
+        for (int i = 0; (i < tmpSoldierNumber); i++)
+        {
+            System.out.println("adding: " + tmpRoundSoldierArray[i]);
+            if(i != toRemove)
+            {
+                appendSoldier(tmpRoundSoldierArray[i]);
+            }
+        }
     }
 
     public void appendMonster(Monster newMonster) {
@@ -156,24 +253,24 @@ public class Round {
     }
 
     public String toString() {
-        String toPrint = "";
+        String toPrint = this.player.toString() + "\n";
         for (int i = 0; i < currentSoldierNumber; i++) {
             if (roundSoldierArray[i] != null) {
-                toPrint = toPrint + ", " + roundSoldierArray[i].toString();
+                toPrint = toPrint + "[" + i + "]:" + roundSoldierArray[i].toString() + ", ";
             }
             else
             {
-                System.out.println("soldier lost");
+                //System.out.println("soldier lost");
             }
         }
         toPrint = toPrint + "\n";
         for (int i = 0; i < currentMonsterNumber; i++) {
             if (roundMonsterArray[i] != null) {
-                toPrint = toPrint + ", " + roundMonsterArray[i].toString();
+                toPrint = toPrint + "[" + i + "]:" + roundMonsterArray[i].toString() + ", ";
             }
             else
             {
-                System.out.println("monster lost");
+                //System.out.println("monster lost");
             }
         }
         return toPrint;

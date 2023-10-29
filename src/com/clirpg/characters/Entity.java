@@ -17,4 +17,14 @@ abstract class Entity implements Serializable
         this.name = name;
         this.health = health;
     }
+
+    public int getHealth()
+    {
+        return this.health;
+    }
+
+    public void setHealth(int change)
+    {
+        this.health = this.health - change;
+    }
 }

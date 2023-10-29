@@ -7,7 +7,7 @@ public class Monster extends Entity implements Combat{
     public Monster(String name)
     {
         super(name);
-        this.health = 100;
+        this.health = 30;
     }
 
     public Monster(String name, int health)
@@ -15,13 +15,14 @@ public class Monster extends Entity implements Combat{
         super(name, health);
     }
 
-    public void combat()
+    public int combat()
     {
         System.out.println("start combat");
+        return 1;
     }
 
     public String toString()
     {
-        return this.name + " " + this.job; 
+        return this.name + " HP: " + this.health; 
     }
 }

@@ -7,7 +7,7 @@ public class Soldier extends Entity implements Combat, Talk{
     public Soldier(String name)
     {
         super(name);
-        this.health = 100;
+        this.health = 15;
     }
 
     public Soldier(String name, int health)
@@ -15,9 +15,10 @@ public class Soldier extends Entity implements Combat, Talk{
         super(name, health);
     }
 
-    public void combat()
+    public int combat()
     {
         System.out.println("start combat");
+        return 1;
     }
 
     public void talk()
@@ -27,6 +28,6 @@ public class Soldier extends Entity implements Combat, Talk{
 
     public String toString()
     {
-        return this.name + " " + this.job; 
+        return this.name + " HP: " + this.health; 
     }
 }
