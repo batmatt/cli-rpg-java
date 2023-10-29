@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import src.com.clirpg.characters.*;
+import src.com.utils.ConsoleColors;
 
 public class Round {
     private int level;
@@ -160,10 +161,9 @@ public class Round {
 
         while ((enemiesRemain == 1) && (playerAlive == 1))
         {
-            System.out.println("~~~~~~~~~~~~");
+            System.out.println(ConsoleColors.RED + "~~~~~~~~~~~~" + ConsoleColors.RESET);
             System.out.println(this.toString());
-            System.out.println("Enter '1' to attack soldier");
-            System.out.println("Enter '2' to attack monster");
+            System.out.println("Enter '1' to attack soldier or '2' to attack monster");
             int choice = choiceReader.nextInt();
     
             // Check the value of 'choice' and perform actions accordingly
@@ -175,16 +175,17 @@ public class Round {
                     }
                     // Code to attack a soldier
                     // For example: player.attackSoldier();
-                    System.out.println("player chooses soldier");
-                    System.out.println("choose soldier 0-" + (currentSoldierNumber - 1));
+                    //System.out.println("player chooses soldier");
+                    System.out.println(ConsoleColors.YELLOW_UNDERLINED + "Choose Soldier in range 0-" + (currentSoldierNumber - 1) + ConsoleColors.RESET);
                     choice = choiceReader.nextInt();
                     while ((choice > (currentSoldierNumber - 1)) || (choice < 0))
                     {
                         System.out.println("Invalid integer, pick again");
-                        System.out.println("choose soldier 0-" + (currentSoldierNumber - 1));
+                        System.out.println(ConsoleColors.YELLOW_UNDERLINED + "Choose Soldier in range 0-" + (currentSoldierNumber - 1) + ConsoleColors.RESET);
                         choice = choiceReader.nextInt();
                     }
-                    System.out.println("selected soldier: " + roundSoldierArray[choice].toString());
+                    System.out.println(ConsoleColors.RED + "~~~~~~~~~~~~" + ConsoleColors.RESET);
+                    System.out.println("Selected soldier: " + roundSoldierArray[choice].toString());
                     roundSoldierArray[choice].setHealth(player.combat());
                     break;
                 case 2:
@@ -194,16 +195,17 @@ public class Round {
                     }
                     // Code to attack a monster
                     // For example: player.attackMonster();
-                    System.out.println("player chooses Monster");
-                    System.out.println("choose Monster 0-" + (currentMonsterNumber - 1));
+                    //System.out.println("player chooses Monster");
+                    System.out.println(ConsoleColors.YELLOW_UNDERLINED + "Choose Monster in range 0-" + (currentMonsterNumber - 1) + ConsoleColors.RESET);
                     choice = choiceReader.nextInt();
                     while ((choice > (currentMonsterNumber - 1)) || (choice < 0))
                     {
                         System.out.println("Invalid integer, pick again");
-                        System.out.println("choose Monster 0-" + (currentMonsterNumber - 1));
+                        System.out.println(ConsoleColors.YELLOW_UNDERLINED + "Choose Monster in range 0-" + (currentMonsterNumber - 1) + ConsoleColors.RESET);
                         choice = choiceReader.nextInt();
                     }
-                    System.out.println("selected Monster: " + roundMonsterArray[choice].toString());
+                    System.out.println(ConsoleColors.RED + "~~~~~~~~~~~~" + ConsoleColors.RESET);
+                    System.out.println("Selected Monster: " + roundMonsterArray[choice].toString());
                     roundMonsterArray[choice].setHealth(player.combat());
                     break;
                 default:
@@ -216,14 +218,14 @@ public class Round {
                 Random random = new Random();
                 if (currentSoldierNumber > 0)
                 {
-                    System.out.println("~~~~~~~~~~~~");
+                    System.out.println(ConsoleColors.RED + "~~~~~~~~~~~~" + ConsoleColors.RESET);
                     int randomNumber = random.nextInt(currentSoldierNumber);
                     Soldier selectedSoldier = roundSoldierArray[randomNumber];
                     player.health -= selectedSoldier.combat();
                 }
                 if (currentMonsterNumber > 0)
                 {
-                    System.out.println("~~~~~~~~~~~~");
+                    System.out.println(ConsoleColors.RED + "~~~~~~~~~~~~" + ConsoleColors.RESET);
                     int randomNumber = random.nextInt(currentMonsterNumber);
                     Monster selectedMonster = roundMonsterArray[randomNumber];
                     player.health -= selectedMonster.combat();
@@ -231,7 +233,7 @@ public class Round {
             }
             if (player.health < 0)
             {
-                System.out.println("You died!");
+                System.out.println(ConsoleColors.RED_BACKGROUND + "You died!" + ConsoleColors.RESET);
                 playerAlive = 0;
             }
         }
@@ -247,7 +249,7 @@ public class Round {
                 {
                     if (roundSoldierArray[i].health <= 0)
                     {
-                        System.out.println(roundSoldierArray[i].name + " died");
+                        System.out.println(ConsoleColors.RED_BACKGROUND + roundSoldierArray[i].name + " died" + ConsoleColors.RESET);
                         removeSoldier(i);
                     }
                 }
@@ -267,7 +269,7 @@ public class Round {
                 {
                     if (roundMonsterArray[i].health <= 0)
                     {
-                        System.out.println(roundMonsterArray[i].name + " died");
+                        System.out.println(ConsoleColors.RED_BACKGROUND + roundMonsterArray[i].name + " died" + ConsoleColors.RESET);
                         removeMonster(i);
                     }
                 }
@@ -340,7 +342,8 @@ public class Round {
     }
 
     public String toString() {
-        String toPrint = this.player.toString() + "\n";
+        String toPrint = (ConsoleColors.CYAN + this.player.toString() + "\n" + ConsoleColors.RESET);
+        toPrint += (ConsoleColors.GREEN_BACKGROUND + "Soldiers: " + ConsoleColors.RESET);
         for (int i = 0; i < currentSoldierNumber; i++) {
             if (roundSoldierArray[i] != null) {
                 toPrint = toPrint + "[" + i + "]:" + roundSoldierArray[i].toString() + ", ";
@@ -350,7 +353,8 @@ public class Round {
                 //System.out.println("soldier lost");
             }
         }
-        toPrint = toPrint + "\n";
+        toPrint += "\n";
+        toPrint += (ConsoleColors.GREEN_BACKGROUND + "Monsters: " + ConsoleColors.RESET);
         for (int i = 0; i < currentMonsterNumber; i++) {
             if (roundMonsterArray[i] != null) {
                 toPrint = toPrint + "[" + i + "]:" + roundMonsterArray[i].toString() + ", ";

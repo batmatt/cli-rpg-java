@@ -23,8 +23,7 @@ public class Player extends Entity implements Combat {
 
     @Override
     public String toString() {
-        return "Player [health=" + health + ", attackStrength=" + attackStrength + ", hitProbability=" + hitProbability + ", money=" + money
-                + "]";
+        return "Name: " + this.name + ", Health: " + health + ", Attack Strength: " + attackStrength + ", Hit Probability: " + hitProbability + ", Money: " + money;
     }
 
     public int combat()
@@ -40,7 +39,7 @@ public class Player extends Entity implements Combat {
         }
         else
         {
-            System.out.println("attack fails");
+            System.out.println("Attack fails");
         }
         return 0;
     }
