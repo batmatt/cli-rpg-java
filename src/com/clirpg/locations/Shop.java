@@ -45,8 +45,6 @@ public class Shop implements Visit {
                     }
                     break;
                 case 2:
-                    break;
-                case 3:
                     if(player.money >= 10){
                         player.hitProbability += 5;
                         player.money -= 15;
@@ -56,9 +54,7 @@ public class Shop implements Visit {
                         + ConsoleColors.RESET);
                     }
                     break;
-                case 4:
-                    break;
-                case 5:
+                case 3:
                     if(player.money >= 20){
                         player.health += 5;
                         player.money -= 20;
@@ -68,7 +64,7 @@ public class Shop implements Visit {
                         + ConsoleColors.RESET);
                     }
                     break;
-                case 6:
+                case 4:
                     shopBool = false;
                     break;
                 default:
@@ -85,11 +81,9 @@ public class Shop implements Visit {
         System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": Here are the options you can choose:"
                 + ConsoleColors.RESET);
         System.out.println("1. Attack1 strength +1, costs 10");
-        System.out.println("2. Attack2 strength +1, costs xx");
-        System.out.println("3. Attack1 hit probability +5%, costs 15");
-        System.out.println("4. Attack2 hit probability +5%, costs xx");
-        System.out.println("5. Health +5, costs 20");
-        System.out.println("6. Exit");
+        System.out.println("2. Attack1 hit probability +5%, costs 15");
+        System.out.println("3. Health +5, costs 20");
+        System.out.println("4. Exit");
         return;
     }
 
