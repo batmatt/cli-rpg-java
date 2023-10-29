@@ -35,23 +35,38 @@ public class Shop implements Visit {
 
             switch (choiceShop) {
                 case 1:
-                    player.attackStrength += 1;
-                    player.money -= 10;
-                    System.out.println("Your current attack strength: " + player.attackStrength);
+                    if(player.money >= 10){
+                        player.attackStrength += 1;
+                        player.money -= 10;
+                        System.out.println("Your current attack strength: " + player.attackStrength);
+                    }else{
+                        System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": I am sorry, but you don't have enough money to buy this."
+                        + ConsoleColors.RESET);
+                    }
                     break;
                 case 2:
                     break;
                 case 3:
-                    player.hitProbability += 5;
-                    player.money -= 15;
-                    System.out.println("Your current hit rate: " + player.hitProbability);
+                    if(player.money >= 10){
+                        player.hitProbability += 5;
+                        player.money -= 15;
+                        System.out.println("Your current hit rate: " + player.hitProbability);
+                    }else{
+                        System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": I am sorry, but you don't have enough money to buy this."
+                        + ConsoleColors.RESET);
+                    }
                     break;
                 case 4:
                     break;
                 case 5:
-                    player.health += 5;
-                    player.money -= 20;
-                    System.out.println("Your current health: " + player.health);
+                    if(player.money >= 20){
+                        player.health += 5;
+                        player.money -= 20;
+                        System.out.println("Your current health: " + player.health);
+                    }else{
+                        System.out.println(ConsoleColors.CYAN + "\n" + shopkeeper.toString() + ": I am sorry, but you don't have enough money to buy this."
+                        + ConsoleColors.RESET);
+                    }
                     break;
                 case 6:
                     shopBool = false;
@@ -77,4 +92,5 @@ public class Shop implements Visit {
         System.out.println("6. Exit");
         return;
     }
+
 }
