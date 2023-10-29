@@ -33,7 +33,10 @@ public class Arena implements Visit{
         // start fight with power level: levelArena
 
         Round round1 = new Round(levelArena, player);
-        round1.startRound();
+        if (round1.startRound() == 0)
+        {
+            return;
+        };
 
         String contFight = "y";
         Scanner contScan = new Scanner(System.in);
@@ -46,7 +49,10 @@ public class Arena implements Visit{
                 case "y":   levelArena++; 
                             System.out.println(ConsoleColors.PURPLE + trainer.toString() + ": The fight continues with the arena level " + levelArena + ConsoleColors.RESET); 
                             round1 = new Round(levelArena, player);
-                            round1.startRound();
+                            if (round1.startRound() == 0)
+                            {
+                                return;
+                            };
                             break;
                 case "n":   contFight = "n"; 
                             System.out.println(ConsoleColors.PURPLE_BOLD + trainer.toString() + ": This was a nice fighting session. I look forward to seeing you in the arena again." + ConsoleColors.RESET);

@@ -39,8 +39,9 @@ public class Round {
         this.level = level;
     }
 
-    public void startRound()
+    public int startRound()
     {
+        player.health = 100;
         Random random = new Random();
         //System.out.println("started round at level: " + this.getLevel());
         // Get enemies
@@ -50,7 +51,7 @@ public class Round {
         for (int i = this.getLevel(); i > 0; i--) {
             //System.out.println(i);
             // chane do disable monsters
-            int randomNumber = random.nextInt(1);
+            int randomNumber = random.nextInt(2);
             //System.out.println(randomNumber);
             switch (randomNumber) {
                 case 0:
@@ -142,12 +143,24 @@ public class Round {
             }
         }
         this.roundLoop();
+        if(player.health >= 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public void roundLoop() {
         Scanner choiceReader = new Scanner(System.in);
-        
-        while (player.health > 0) {
+        int enemiesRemain = 1;
+        int playerAlive = 1;
+
+        while ((enemiesRemain == 1) && (playerAlive == 1))
+        {
+            System.out.println("~~~~~~~~~~~~");
             System.out.println(this.toString());
             System.out.println("Enter '1' to attack soldier");
             System.out.println("Enter '2' to attack monster");
@@ -156,6 +169,10 @@ public class Round {
             // Check the value of 'choice' and perform actions accordingly
             switch (choice) {
                 case 1:
+                    if(currentSoldierNumber <= 0)
+                    {
+                        break;
+                    }
                     // Code to attack a soldier
                     // For example: player.attackSoldier();
                     System.out.println("player chooses soldier");
@@ -171,6 +188,10 @@ public class Round {
                     roundSoldierArray[choice].setHealth(player.combat());
                     break;
                 case 2:
+                    if(currentMonsterNumber <= 0)
+                    {
+                        break;
+                    }
                     // Code to attack a monster
                     // For example: player.attackMonster();
                     System.out.println("player chooses Monster");
@@ -189,45 +210,111 @@ public class Round {
                     System.out.println("Invalid choice. Try again.");
                     break;
             }
-            checkAndUpdate();
+            enemiesRemain = checkAndUpdate();
+            if (enemiesRemain == 1)
+            {
+                Random random = new Random();
+                if (currentSoldierNumber > 0)
+                {
+                    System.out.println("~~~~~~~~~~~~");
+                    int randomNumber = random.nextInt(currentSoldierNumber);
+                    Soldier selectedSoldier = roundSoldierArray[randomNumber];
+                    player.health -= selectedSoldier.combat();
+                }
+                if (currentMonsterNumber > 0)
+                {
+                    System.out.println("~~~~~~~~~~~~");
+                    int randomNumber = random.nextInt(currentMonsterNumber);
+                    Monster selectedMonster = roundMonsterArray[randomNumber];
+                    player.health -= selectedMonster.combat();
+                }
+            }
+            if (player.health < 0)
+            {
+                System.out.println("You died!");
+                playerAlive = 0;
+            }
         }
     }
     
     public int checkAndUpdate()
     {
-        for (int i = 0; i < currentSoldierNumber; i++)
+        if (currentSoldierNumber > 0)
         {
-            if (roundSoldierArray[i] != null)
+            for (int i = 0; i < currentSoldierNumber; i++)
             {
-                if (roundSoldierArray[i].health <= 0)
+                if (roundSoldierArray[i] != null)
                 {
-                    System.out.println(roundSoldierArray[i].name + " died");
-                    removeSoldier(i);
+                    if (roundSoldierArray[i].health <= 0)
+                    {
+                        System.out.println(roundSoldierArray[i].name + " died");
+                        removeSoldier(i);
+                    }
+                }
+                else
+                {
+                    System.out.println("soldier lost error at " + i);
                     return 1;
                 }
             }
-            else
+        }
+
+        if (currentMonsterNumber > 0)
+        {
+            for (int i = 0; i < currentMonsterNumber; i++)
             {
-                System.out.println("soldier lost error at " + i);
-                return 0;
+                if (roundMonsterArray[i] != null)
+                {
+                    if (roundMonsterArray[i].health <= 0)
+                    {
+                        System.out.println(roundMonsterArray[i].name + " died");
+                        removeMonster(i);
+                    }
+                }
+                else
+                {
+                    System.out.println("monster lost error at " + i);
+                    return 1;
+                }
             }
         }
-        return 0;
+        if ((currentMonsterNumber + currentSoldierNumber) == 0)
+        {
+            return 0;
+        }
+        return 1;
     }
 
     public void removeSoldier(int toRemove)
     {
         Soldier[] tmpRoundSoldierArray = roundSoldierArray;
         int tmpSoldierNumber = currentSoldierNumber;
-        System.out.println("target to remove " + tmpRoundSoldierArray[toRemove]);
+        //System.out.println("target to remove " + tmpRoundSoldierArray[toRemove]);
         this.roundSoldierArray = new Soldier [1000];
         this.currentSoldierNumber = 0;
         for (int i = 0; (i < tmpSoldierNumber); i++)
         {
-            System.out.println("adding: " + tmpRoundSoldierArray[i]);
+            //System.out.println("adding: " + tmpRoundSoldierArray[i]);
             if(i != toRemove)
             {
                 appendSoldier(tmpRoundSoldierArray[i]);
+            }
+        }
+    }
+
+    public void removeMonster(int toRemove)
+    {
+        Monster[] tmpRoundMonsterArray = roundMonsterArray;
+        int tmpMonsterNumber = currentMonsterNumber;
+        //System.out.println("target to remove " + tmpRoundMonsterArray[toRemove]);
+        this.roundMonsterArray = new Monster [1000];
+        this.currentMonsterNumber = 0;
+        for (int i = 0; (i < tmpMonsterNumber); i++)
+        {
+            //System.out.println("adding: " + tmpRoundMonsterArray[i]);
+            if(i != toRemove)
+            {
+                appendMonster(tmpRoundMonsterArray[i]);
             }
         }
     }

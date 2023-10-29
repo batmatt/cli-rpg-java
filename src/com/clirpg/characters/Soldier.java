@@ -3,7 +3,8 @@ package src.com.clirpg.characters;
 public class Soldier extends Entity implements Combat, Talk{
     final static boolean friendly = false;
     String job = "Enemy Soldier";
-    
+    int damage = 10;
+
     public Soldier(String name)
     {
         super(name);
@@ -16,9 +17,9 @@ public class Soldier extends Entity implements Combat, Talk{
     }
 
     public int combat()
-    {
-        System.out.println("start combat");
-        return 1;
+    {   
+        System.out.println(this.name + " attacks with " + this.damage + " damage");
+        return this.damage;
     }
 
     public void talk()
