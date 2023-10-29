@@ -1,6 +1,8 @@
 package src.com.clirpg.characters;
 
-abstract class Entity
+import java.io.Serializable;
+
+abstract class Entity implements Serializable
 {
     public String name;
     public int health;

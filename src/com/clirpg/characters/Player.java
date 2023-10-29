@@ -1,14 +1,12 @@
 package src.com.clirpg.characters;
 
-import java.io.Serializable;
-
-public class Player extends Entity implements Combat, Serializable{
+public class Player extends Entity implements Combat {
     public int attackStrength;
     public int hitProbability;
     public int money;
     public int maxLevelArena;
 
-    final static boolean friendly = true;
+    final boolean friendly = true;
     
     public Player(String name, CharacterClass characterClass)
     {

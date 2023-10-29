@@ -33,20 +33,21 @@ public class Game {
                 case 1:
                     if (player == null) {
                         player = loadCharacter();
-                        if (player == null) {
-                            startNewGame();
+                        if (player != null) {
+                            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Starting game with a saved character" + ConsoleColors.RESET);
+                        } else {
+                            player = characterCreator.createCharacter();
                         }
-                        System.out.println("Game started with character: " + player.name);
-                        gameplay.openGameWorld(player);
                     } else {
                         System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "You have an active game" + ConsoleColors.RESET);
-                        gameplay.openGameWorld(player);
                     }
+                    gameplay.setPlayer(player);
+                    gameplay.openGameWorld(player);
                     break;
                 case 2:
                     if (player != null) {
                         saveCharacter(player);
-                        System.out.println("Character progress saved.");
+                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Character progress saved." + ConsoleColors.RESET);
                         player = loadCharacter();
                     } else {
                         System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "No character to save. Create a character first." + ConsoleColors.RESET);
@@ -77,6 +78,7 @@ public class Game {
     
     private void startNewGame() {
         player = characterCreator.createCharacter();
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Created new character: " + player.name + ConsoleColors.RESET);
         gameplay.setPlayer(player);
         gameplay.openGameWorld(player);
     }
@@ -96,10 +98,9 @@ public class Game {
     }
 
     private void saveCharacter(Player player) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("savedCharacter.dat"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("savedCharacter.dat")))) {
             oos.writeObject(player);
-            oos.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

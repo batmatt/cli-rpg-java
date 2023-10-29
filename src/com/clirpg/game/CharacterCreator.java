@@ -18,7 +18,7 @@ public class CharacterCreator {
         CharacterClass characterClass = chooseCharacterClass();
         Player player = new Player(playerName, characterClass);
 
-        System.out.println(ConsoleColors.GREEN + "You have created a " + characterClass + " named " + playerName + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "You have created a " + characterClass + " named " + playerName + ConsoleColors.RESET);
 
         return player;
     }
