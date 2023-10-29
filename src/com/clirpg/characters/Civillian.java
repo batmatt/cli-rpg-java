@@ -21,8 +21,7 @@ public class Civillian extends Entity implements Talk{
 
     public void talk()
     {
-        //System.out.println(ConsoleColors.GREEN + "\n" + toString() + ": " + player.toName() + ", I need your help. I saw a monster at xxx with level xxx. Do you want to fight it? You would get 10 coins for it\n" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.GREEN + "\n" + toString() + ": I saw a monster at xxx with level xxx. Do you want to fight it? You would get 10 coins for it\n" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "\n" + toString() + ": I saw enemies. Do you want to fight them? You would get 10 coins for it\n" + ConsoleColors.RESET);
     }
 
     public String toString()
@@ -32,6 +31,6 @@ public class Civillian extends Entity implements Talk{
 
     public void talkEnd()
     {
-        System.out.println(ConsoleColors.GREEN + "\n" + toString() + ": Thank you for killing the monster. Here is your reward.\n" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "\n" + toString() + ": Thank you for killing the enemies. Here is your reward.\n" + ConsoleColors.RESET);
     }
 }
